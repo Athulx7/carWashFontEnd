@@ -3,7 +3,7 @@ import "./CSS/dashboard.css";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import carwashlogo from "../assets/carwashlogo.jpg";
-import dashboardImage from "../assets/dashimage.png";
+import dashboardImage from "../assets/dashImage.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
