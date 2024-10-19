@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import carHomeimage from "../assets/carHomeimage.jpg";
+
 import "./CSS/home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
