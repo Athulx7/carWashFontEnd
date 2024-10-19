@@ -1,0 +1,38 @@
+.home-heading{
+   margin-top: 11rem;
+}
+.searchbar{
+    width: 70%;
+    height: 75px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50px;
+}
+.loacation input{
+    width: 100%;
+    margin-left: px;
+    height: 75px;
+    border-radius: 50px;
+    border-color: white;
+}
+.date input{
+    width: 100%;
+    margin-left: px;
+    height: 75px;
+    border-radius: 50px;
+    border-color: white;
+
+}
+.time input{
+    width: 100%;
+    margin-left: px;
+    height: 75px;
+    border-radius: 50px;
+    border-color: white;
+
+}
+.main{
+    background-image: url('https://wallpapers.com/images/featured/car-wash-0d91u3sqo0qw441a.jpg');
+    background-size: cover;
+}

@@ -1,0 +1,21 @@
+.dash{
+    
+}
+
+.firstbox{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 200px;
+    height: 100px;
+    border-radius: 15px;
+   
+}
+
+.dashlinks{
+    text-decoration: none;
+    color: black;
+}
+.dashlinks:hover{
+    color: blue;
+    transition: .5s;
+    transform: scale(1.5);
+}

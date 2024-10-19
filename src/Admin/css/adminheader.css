@@ -1,0 +1,19 @@
+.adminheader1{
+    width: 20%;
+    height: 200rem;
+    position: fixed;
+}
+
+.adminlinks{
+    text-decoration: none;
+    color: white;
+
+}
+
+.adminlinks:hover{
+    background-color: white;
+    color: blue;
+  padding: 10px;
+  border-radius: 30px;
+  transition: 0.5s;
+}

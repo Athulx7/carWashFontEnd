@@ -1,0 +1,13 @@
+.link1{
+    text-decoration: none;
+    color: black;
+}
+.link1:hover{
+    color: #0d6ef7;
+}
+.ratinng{
+    width: 60px;
+    height: 35px;
+    background-color: green;
+    font-weight: bold;
+}
