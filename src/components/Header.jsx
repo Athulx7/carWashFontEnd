@@ -1,5 +1,5 @@
 import React from "react";
-import carwashLogo from "../assets/carwashLogo.jpg";
+import carwashLogo from "../assets/carwashlogo.jpg";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
