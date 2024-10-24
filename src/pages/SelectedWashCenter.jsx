@@ -1,19 +1,102 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
-import washingimage1 from "../assets/washing1.jpg";
-import washingimage2 from "../assets/wasing2.jpg";
-import washingimage3 from "../assets/washing3.jpg";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import "./CSS/selectedcenter.css";
 
 import CenterBookin from "./CenterBookin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  addReviewForSpecificCenter,
+  getSelectedCenterAPI,
+} from "../Services/allAPI";
+import { BASE_URL } from "../Services/baseURL";
+import { toast } from "react-toastify";
+import { reviewResponceContext } from "../Context/ContextShare";
 
 function SelectedWashCenter() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  // console.log(id)
+
+  const [centerData, setCenterData] = useState([]);
+
+  const getSelecetdCEnterDetails = async () => {
+    const result = await getSelectedCenterAPI(id);
+    setCenterData(result.data);
+    // console.log(result);
+  };
+
+  // console.log(centerData);
+
+  useEffect(() => {
+    getSelecetdCEnterDetails();
+  }, [id]);
+
+  //adding review
+  const [selectedStar, setSelectedstar] = useState(0);
+  const handleSelectStar = (index) => {
+    setSelectedstar(index + 1);
+  };
+
+  const [reviewDEtails, setReviewDEtails] = useState("");
+  // const [submitReviewData,setSubmitReviewData] = useState(null)
+  const loggedUser = JSON.parse(sessionStorage.getItem("leggeduser"));
+  const token = sessionStorage.getItem("token");
+
+  const { reviewResponce, setReviewResponce } = useContext(
+    reviewResponceContext
+  );
+
+  const hanldeAddReview = async (e) => {
+    e.preventDefault();
+    if (loggedUser) {
+      if (reviewDEtails === "") {
+        toast.error("please add your valuable review");
+      } else {
+        const username = loggedUser.username;
+        const useremail = loggedUser.email;
+        const washcentername = centerData.washcentername;
+        const ownerID = centerData.ownerID;
+
+        // console.log(username,useremail,washcentername)
+
+        const reqBody = new FormData();
+        reqBody.append("username", username);
+        reqBody.append("useremail", useremail);
+        reqBody.append("washcentername", washcentername);
+        reqBody.append("rating", selectedStar);
+        reqBody.append("review", reviewDEtails);
+        reqBody.append("centerID", id);
+        reqBody.append("ownerID", ownerID);
+        // console.log(reqBody);
+
+        const result = await addReviewForSpecificCenter(reqBody);
+        setReviewResponce(result);
+        // console.log(result);
+        if (result.status === 200) {
+          toast.success("your valuable feed back is updated");
+          setReviewDEtails("");
+          setSelectedstar(0);
+        } else {
+          toast.error("something went wrong");
+        }
+      }
+    } else {
+      swal({
+        title: "please Login",
+        text: "please login and add valubale feedback about us",
+        icon: "warning",
+      });
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -26,18 +109,22 @@ function SelectedWashCenter() {
                 <Carousel>
                   <Carousel.Item>
                     <img
-                      src={washingimage1}
+                      src={`${BASE_URL}/uploads/${centerData?.image1}`}
                       width={"100%"}
                       height={"300rem"}
                       alt=""
                     />
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img src={washingimage2} width={"100%"} height={"300rem"} />
+                    <img
+                      src={`${BASE_URL}/uploads/${centerData?.image2}`}
+                      width={"100%"}
+                      height={"300rem"}
+                    />
                   </Carousel.Item>
                   <Carousel.Item>
                     <img
-                      src={washingimage3}
+                      src={`${BASE_URL}/uploads/${centerData?.image3}`}
                       alt=""
                       width={"100%"}
                       height={"300rem"}
@@ -46,7 +133,9 @@ function SelectedWashCenter() {
                 </Carousel>
               </div>
               <div className="heading mt-5">
-                <h3 className="text-primary fw-bold">CAR WASH CENTER NAME</h3>
+                <h3 className="text-primary fw-bold">
+                  {centerData?.washcentername?.toUpperCase()}
+                </h3>
                 <div className="d-flex ">
                   <p>
                     <FontAwesomeIcon icon={faStar} className="text-warning " />{" "}
@@ -54,108 +143,75 @@ function SelectedWashCenter() {
                   </p>
 
                   <p className="ms-2">||</p>
-                  <p className="ms-2">loaction</p>
+                  <p className="ms-2">{centerData?.location}</p>
                 </div>
 
                 <hr />
               </div>
 
               <h3 className="fw-bold mt-4">About This Car Wash Center</h3>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Corporis hic ut, laudantium facere, expedita excepturi Lorem
-                ipsum, dolor sit amet consectetur adipisicing elit. Voluptate
-                veniam officiis accusamus sed voluptatum incidunt unde atque
-                dolor iusto illum mollitia repellendus, magnam amet voluptas
-                pariatur natus earum ea nostrum? Lorem ipsum dolor, sit amet
-                consectetur adipisicing elit. Ea quaerat dolores voluptates
-                quibusdam dicta at temporibus odit veniam nam delectus tenetur
-                blanditiis, fugit sequi officia sint. Suscipit quo perspiciatis
-                maxime. Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit. Laborum unde repudiandae pariatur natus ipsa. Aut illum
-                est recusandae distinctio, odit veritatis doloribus velit
-                assumenda laboriosam suscipit accusamus similique et quidem.
-                libero eum, repellendus corrupti ducimus soluta alias itaque
-                nesciunt assumenda? Incidunt quisquam expedita minus illo?
-              </p>
+              <p>{centerData?.about?.substring(0, 1000)}</p>
 
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perspiciatis doloremque vero odio dolorem, qui voluptas ratione
-                iure accusamus omnis ad rerum aspernatur labore, quis autem
-                officiis! Esse maiores dolores ipsam. Lorem, ipsum dolor sit
-                amet consectetur adipisicing elit. Laborum cupiditate illo
-                voluptate sint officia nobis magni sapiente aliquid architecto
-                hic, voluptatum fugiat repudiandae ratione est tempore quibusdam
-                r Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Veniam nostrum ullam quod natus quasi assumenda laborum
-                cupiditate excepturi quidem magni facilis ab officiis pariatur,
-                rem perferendis vitae illo magnam obcaecati. ecusandae fugit
-                culpa.
-              </p>
+              <p>{centerData?.about?.substring(1000, 1500)}</p>
+              {centerData?.about?.substring(1500)}
 
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quia
-                accusamus saepe sit aliquid minus sapiente ducimus, distinctio
-                ab aperiam tempore sint praesentium! Inventore fuga Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Quae in error
-                suscipit! Nesciunt rem nulla qui exercitationem ipsam! Impedit
-                iste quasi ut, necessitatibus hic repellat deleniti sapiente
-                dolore sit dolor. sequi odio, adipisci suscipit recusandae!
-              </p>
+              <p></p>
 
               <div className="addreview mt-5">
                 <h3 className="mb-4 fw-bold">
                   Add a Review and rating about center name
                 </h3>
-                
-                <textarea name="" className="form-control" placeholder="Enter your valubale review" style={{height:'150px'}} id=""></textarea>
-                 <p className="fw-bold mt-3 text-center ">click your rating</p>
-                <div className="d-flex  mt-3 align-items-center justify-content-center text-center">
-                 
-                  <button
-                    className=" ms-2"
-                    style={{ backgroundColor: "white", border: "white" }}
-                  >
-                    <FontAwesomeIcon icon={faStar} className="text-warning" />
-                  </button>
 
-                  <button
-                    className=" ms-2"
-                    style={{ backgroundColor: "white", border: "white" }}
-                  >
-                    <FontAwesomeIcon icon={faStar} className="text-warning" />
-                  </button>
+                <div>
+                  <textarea
+                    name=""
+                    className="form-control"
+                    placeholder="Enter your valubale review"
+                    style={{ height: "150px" }}
+                    id=""
+                    value={reviewDEtails}
+                    onChange={(e) => setReviewDEtails(e.target.value)}
+                  ></textarea>
+                  <p className="fw-bold mt-3 text-center ">click your rating</p>
+                  <div className="d-flex  mt-3 align-items-center justify-content-center text-center">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <button
+                        onClick={() => handleSelectStar(index)}
+                        className=" ms-2"
+                        style={{ backgroundColor: "white", border: "white" }}
+                      >
+                        {index < selectedStar ? (
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            className="text-warning"
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faStarRegular}
+                            className="text-warning"
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
 
-                  <button
-                    className=" ms-2"
-                    style={{ backgroundColor: "white", border: "white" }}
-                  >
-                    <FontAwesomeIcon icon={faStar} className="text-warning" />
-                  </button>
-
-                  <button
-                    className=" ms-2"
-                    style={{ backgroundColor: "white", border: "white" }}
-                  >
-                    <FontAwesomeIcon icon={faStar} className="text-warning" />
-                  </button>
-
-                  <button
-                    className=" ms-2"
-                    style={{ backgroundColor: "white", border: "white" }}
-                  >
-                    <FontAwesomeIcon icon={faStar} className="text-warning" />
-                  </button>
+                  <div className="text-center mt-2 ">
+                    <p className="fw-bold">{selectedStar} /5</p>
+                  </div>
+                  <Link>
+                    <button
+                      className="btn btn-primary w-100 "
+                      onClick={hanldeAddReview}
+                    >
+                      SUBMIT
+                    </button>
+                  </Link>
                 </div>
-                <Link>
-                  <button className="btn btn-primary w-100 mt-3">SUBMIT</button>
-                </Link>
               </div>
             </Col>
 
             <Col style={{}}>
-              <CenterBookin />
+              <CenterBookin centerData={centerData} />
             </Col>
           </Row>
         </div>

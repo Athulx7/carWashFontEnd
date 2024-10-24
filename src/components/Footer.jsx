@@ -69,7 +69,7 @@ function Footer() {
                 <FontAwesomeIcon icon={faFacebook}  style={{fontSize:'30px'}}/>
                 </Link>
 
-                <Link className='lnk ms-3' style={{textDecoration:'none',color:'lightblue'}}>
+                <Link className='lnk ms-3 text-primary' style={{textDecoration:'none',color:''}}>
                 <FontAwesomeIcon icon={faTwitter} style={{fontSize:'30px'}}/>
                 </Link>
 

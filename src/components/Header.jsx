@@ -9,28 +9,22 @@ import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
 
 function Header() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleLogout = (e)=>{
+  const handleLogout = (e) => {
     e.preventDefault();
-    if(sessionStorage.getItem("leggeduser")){
-      navigate('/login')
-      sessionStorage.removeItem("leggeduser")
-      sessionStorage.removeItem("token")
-      
+    if (sessionStorage.getItem("leggeduser")) {
+      navigate("/");
+      sessionStorage.removeItem("leggeduser");
+      sessionStorage.removeItem("token");
     }
-    
-  }
+  };
 
+  const loggedUser = JSON.parse(sessionStorage.getItem("leggeduser"));
 
-  
-
-
-  
   return (
     <>
       <Navbar expand="lg" className="">
@@ -51,28 +45,32 @@ function Header() {
               className="text-center align-items-center justify-content-center-evenly d-flex  ms-5"
               style={{ marginLeft: "100px" }}
             >
-              <Link to={'/home'}
+              <Link
+                to={"/"}
                 style={{ textDecoration: "none", color: "black" }}
                 className="ms-5"
               >
                 <h6>HOME</h6>
               </Link>
 
-              <Link to={'/aboutus'}
+              <Link
+                to={"/aboutus"}
                 style={{ textDecoration: "none", color: "black" }}
                 className="ms-5"
               >
                 <h6>ABOUT US</h6>
               </Link>
 
-              <Link to={'/showmorewash'}
+              <Link
+                to={"/showmorewash"}
                 style={{ textDecoration: "none", color: "black" }}
                 className="ms-5"
               >
                 <h6>WASH CENTERS</h6>
               </Link>
 
-              <Link to={'/contactus'}
+              <Link
+                to={"/contactus"}
                 style={{ textDecoration: "none", color: "black" }}
                 className="ms-5"
               >
@@ -82,53 +80,83 @@ function Header() {
           </Navbar.Collapse>
 
           <div className="d-flex">
-            <Link>
-              <img
-                className="userLogo"
-                onClick={handleShow}
-                width={"50px"}
-                src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-                alt=""
-              />
+            {
+              loggedUser?
+              <div>
+              <Link>
+                <img
+                  className="userLogo"
+                  onClick={handleShow}
+                  width={"50px"}
+                  src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                  alt=""
+                />
 
-              <button className="btn btn-danger ms-3 fw-bold " onClick={handleLogout}>LOG OUT</button>
+                <button
+                  className="btn btn-danger ms-3 fw-bold "
+                  onClick={handleLogout}
+                >
+                  LOG OUT
+                </button>
 
+                <Modal show={show} onHide={handleClose} size="md">
+                  <Modal.Header closeButton className="">
+                    <Modal.Title className="text-center ">
+                      USER NAME
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <div className="d-flex flex-column justify-content-center align-items-center">
+                      <div className="">
+                        <img
+                          width={"100px"}
+                          src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                          alt=""
+                        />
+                      </div>
 
+                      <div className="text-center">
+                        <h5>
+                          user Name :{" "}
+                          <span className="text-primary">
+                            {loggedUser.username}
+                          </span>
+                        </h5>
 
-              <Modal show={show} onHide={handleClose} size="md">
-                <Modal.Header closeButton className="">
-                  <Modal.Title className="text-center ">USER NAME</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <div className="d-flex flex-column justify-content-center align-items-center">
-                    <div className="">
-                      <img
-                        width={"100px"}
-                        src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
-                        alt=""
-                      />
+                        <h5>
+                          user email :{" "}
+                          <span className="text-primary">
+                            {loggedUser.email}
+                          </span>
+                        </h5>
+                      </div>
                     </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </Link>
+            </div>
 
-                    <div className="text-center">
-                      <h5>
-                        user Name : <span className="text-primary">name</span>
-                      </h5>
-                      
-                      <h5>
-                        user email :{" "}
-                        <span className="text-primary">email@gamil.com</span>
-                      </h5>
-                    </div>
-                  </div>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                 
-                </Modal.Footer>
-              </Modal>
-            </Link>
+            :
+
+            <div className="buttons">
+              <Link to={"/login"}>
+                <button className="btn btn-primary rounded">LOGIN</button>
+              </Link>
+              <Link to={"/register"}>
+                <button className="btn btn-primary rounded ms-4">
+                  REGISTER
+                </button>
+              </Link>
+            </div>
+
+
+            }
+            
           </div>
         </Container>
       </Navbar>

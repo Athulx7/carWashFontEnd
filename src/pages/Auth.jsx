@@ -8,6 +8,7 @@ import carwashlogo from '../assets/carwashlogo.jpg'
 import { faFacebook, faGithub, faInstagram, faLinkedin, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { toast } from 'react-toastify'
 import { loginApi, registerAPI } from '../Services/allAPI'
+
 function Auth({register}) {
 
   const navigate = useNavigate()
@@ -50,13 +51,13 @@ function Auth({register}) {
     }
     else{
       const result = await loginApi(userData)
-      console.log(result)
+      // console.log(result)
       if(result.status === 200){
         if(result.data.data.role == 'user'){
           sessionStorage.setItem("leggeduser",JSON.stringify(result.data.data))
         sessionStorage.setItem("token",result.data.token)
         toast.success(`${result.data.data.username} logged in successfully`)
-        navigate('/home')
+        navigate('/')
         setUserdata({
           email:'',
           password:''

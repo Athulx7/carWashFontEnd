@@ -15,6 +15,7 @@ function OwnerCenterEdit({ foreditpage }) {
 
   const [editCenter, setEditCenter] = useState({
     washcentername: "",
+    ownerName:'',
     owneremail: "",
     contactno: "",
     about: "",
@@ -30,7 +31,9 @@ function OwnerCenterEdit({ foreditpage }) {
   useEffect(() => {
     if (foreditpage) {
       setEditCenter({
+
         washcentername: foreditpage.washcentername,
+        ownerName:foreditpage.ownerName,
         owneremail: foreditpage.owneremail,
         contactno: foreditpage.contactno,
         about: foreditpage.about,
@@ -62,6 +65,7 @@ function OwnerCenterEdit({ foreditpage }) {
     e.preventDefault();
     const {
       washcentername,
+      ownerName,
       owneremail,
       contactno,
       about,
@@ -86,6 +90,7 @@ function OwnerCenterEdit({ foreditpage }) {
     } else {
       const reqBody = new FormData();
       reqBody.append("washcentername", washcentername);
+      reqBody.append("ownerName",ownerName);
       reqBody.append("owneremail", owneremail);
       reqBody.append("contactno", contactno);
       reqBody.append("about", about);
@@ -342,5 +347,6 @@ function OwnerCenterEdit({ foreditpage }) {
     </div>
   );
 }
+
 
 export default OwnerCenterEdit;

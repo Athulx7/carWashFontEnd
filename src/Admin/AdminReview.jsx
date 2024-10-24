@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminHeader from './AdminHeader'
 import AdminTopHead from './AdminTopHead'
 import { Table } from 'react-bootstrap'
+import { getWebsiteReviewAdmin } from '../Services/allAPI'
 
 function AdminReview() {
+
+
+  const [webreview,setwebreview] = useState([])
+  const gettingwebReview = async()=>{
+    const result = await getWebsiteReviewAdmin()
+    setwebreview(result.data)
+  }
+
+  console.log(webreview)
+
+
+
+
+  useEffect(()=>{
+    gettingwebReview()
+
+  },[])
   return (
     <>
      <div className="d-flex">
@@ -21,6 +39,8 @@ function AdminReview() {
 
 
           <div className="container">
+            {
+              webreview?.length>0?
               <Table
                 striped
                 bordered
@@ -36,32 +56,37 @@ function AdminReview() {
                     <th style={{width:'100px'}}>RATING</th>
                   </tr>
                 </thead>
-                <tbody>
+
+                {
+                  webreview?.map((item,i)=>(
+                    <tbody>
                   <tr className="text-center">
-                    <td>1</td>
-                    <td>hai</td>
-                    <td>hai@gmail.com</td>
-                    <td>jbkajhbkubvdfkabvdfkbvdkfvbdfkbjbfjsbdkfhjbsdhfvbsdkhvsbhserdtyfugiohygfthdgxgy</td>
-                    <td>5</td>
+                    <td>{i+1}</td>
+                    <td>{item?.username}</td>
+                    <td>{item?.useremail}</td>
+                    <td>{item?.webreview}</td>
+                    <td>{item?.webreviewstar}</td>
                   </tr>
 
-                  <tr className="text-center">
-                    <td>1</td>
-                    <td>hai</td>
-                    <td>hai@gmail.com</td>
-                    <td>jbkajhbkubvdfkabvdfkbvdkfvbdfkbjbfjsbdkfhjbsdhfvbsdkhvsbhserdtyfugiohygfthdgxgy</td>
-                    <td>5</td>
-                  </tr>
-
-                  <tr className="text-center">
-                    <td>1</td>
-                    <td>hai</td>
-                    <td>hai@gmail.com</td>
-                    <td>jbkajhbkubvdfkabvdfkbvjbfjsbdkfhjbsdhfvbsdkhvsbhserdtyfugiohygfthdgxgy</td>
-                    <td>5</td>
-                  </tr>
+                 
                 </tbody>
+
+                  ))
+                }
+                
               </Table>
+
+
+              :
+
+              <div className="d-flex align-items-center justify-content-center">
+              <img width={500} src="https://phoenixrogue.com/cdn/shop/files/process-images-01_798195b3-ab81-4b36-819f-fe88c7b2b9de.png?v=1708905593&width=1200" alt="" />
+            </div>
+
+
+
+            }
+              
             </div>
 
         </div>

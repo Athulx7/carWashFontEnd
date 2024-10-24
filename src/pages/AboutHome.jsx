@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import aboutimage from "../assets/aboutwash-Photoroom.png";
 import { Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
@@ -14,18 +12,18 @@ import Modal from "react-bootstrap/Modal";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { addWebReview, getWebReviewApi } from "../Services/allAPI";
 import { toast } from "react-toastify";
-import swal from "sweetalert";
 
-function AboutUs() {
-  const navigate = useNavigate()
+
+function AboutHome() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate()
+  
 
-  //adding reviewfor website
   const loggedUser = JSON.parse(sessionStorage.getItem("leggeduser"));
- 
+  
 
   const [webreviewstar, setWebreviewstar] = useState(0);
   const handleSelectedstar = (index) => {
@@ -35,64 +33,74 @@ function AboutUs() {
 
   const handleWebReviewSubmit = async (e) => {
     e.preventDefault();
-  if(loggedUser){
-    const token = sessionStorage.getItem("token");
-    const username = loggedUser.username;
-    const useremail = loggedUser.email;
-    if (webreview === "") {
-      toast.warning("please add your valuable feedback about us");
-    } else {
-      const reqBody = new FormData();
-      reqBody.append("username", username);
-      reqBody.append("useremail", useremail);
-      reqBody.append("webreview", webreview);
-      reqBody.append("webreviewstar", webreviewstar);
-
-      const result = await addWebReview(reqBody);
-      console.log(result);
-      if (result.status === 200) {
-        handleClose();
-        setWebreview("");
-        setWebreviewstar(0);
-        toast.success("your valuable feedback is updated");
+    // console.log(webreview)
+    // console.log(webreviewstar)
+    // console.log(useremail)
+    // console.log(username)
+    if(loggedUser){
+      const token = sessionStorage.getItem("token");
+  const username = loggedUser.username;
+  const useremail = loggedUser.email;
+      if (webreview === "") {
+        toast.warning("please add your feedback about us");
+      } else {
+        const reqBody = new FormData();
+        reqBody.append("username", username);
+        reqBody.append("useremail", useremail);
+        reqBody.append("webreview", webreview);
+        reqBody.append("webreviewstar", webreviewstar);
+  
+        const result = await addWebReview(reqBody);
+        console.log(result);
+        if (result.status === 200) {
+          handleClose();
+          setWebreview("");
+          setWebreviewstar(0);
+          toast.success("your valuable feedback is updated");
+        }
+        else{
+         toast.error("something went wrong")
+        }
       }
-      else{
 
-      }
     }
+    else{
 
-  }
-  else{
-    swal({
+      swal({
         title:'please Login',
         text:'please login and add valubale feedback about us',
         icon:'warning',
 
       })
       navigate('/login')
-  }
+
+    }
+
    
   };
 
-  //get webfeedback details
+//get webfeedback details 
 
-  const [getingwebreview, setgettingwebreview] = useState([]);
+const [getingwebreview,setgettingwebreview] = useState([])
 
-  const getWebReview = async () => {
-    const result = await getWebReviewApi();
-    console.log(result);
-    setgettingwebreview(result.data);
-  };
-  console.log(getingwebreview);
+const getWebReview = async()=>{
+  const result = await getWebReviewApi()
+//  console.log(result)
+setgettingwebreview(result.data)
 
-  useEffect(() => {
-    getWebReview();
-  }, []);
+}
+console.log(getingwebreview)
+
+useEffect(()=>{
+  getWebReview()
+},[])
+
+
+
+
 
   return (
     <>
-      <Header />
-
       <div className="container d-flex align-items-center justify-content-between ">
         <div className="aboutmain me-5 w-50 ">
           <h3 className="mb-5 fw-bold text-primary">ABOUT US</h3>
@@ -264,10 +272,8 @@ function AboutUs() {
           ))}
         </Carousel>
       </div>
-
-      <Footer />
     </>
   );
 }
 
-export default AboutUs;
+export default AboutHome;

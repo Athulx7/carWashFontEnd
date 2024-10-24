@@ -25,11 +25,11 @@ function Ownercenterdetail() {
   const handleShow = () => setShow(true);
 
   const ownerData = JSON.parse(sessionStorage.getItem("logged owner"));
-
   const token = sessionStorage.getItem("token");
 
   const [addcenterdata, setaddcenterdata] = useState({
     washcentername: ownerData.washcentername,
+    ownerName:ownerData.username,
     owneremail: ownerData.email,
     contactno: "",
     about: "",
@@ -61,6 +61,7 @@ function Ownercenterdetail() {
     e.preventDefault();
     const {
       washcentername,
+      ownerName,
       owneremail,
       contactno,
       about,
@@ -86,6 +87,7 @@ function Ownercenterdetail() {
     } else {
       const reqBody = new FormData();
       reqBody.append("washcentername", washcentername);
+      reqBody.append("ownerName",ownerName)
       reqBody.append("owneremail", owneremail);
       reqBody.append("contactno", contactno);
       reqBody.append("about", about);

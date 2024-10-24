@@ -30,15 +30,15 @@ function App() {
     <>
       <Routes>
         
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/dashing" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/washcenter" element={<WashCenters />} />
         <Route path="/contactus" element={<Contactus />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/register" element={<Auth register="register" />} />
         <Route path="/showmorewash" element={<ShowmoreHomeWash />} />
-        <Route path="/selectedwash" element={<SelectedWashCenter />} />
+        <Route path="/selectedwash/:id" element={<SelectedWashCenter />} />
 
 
         <Route path="/ownerdash" element={<OwnerDashboard />} />

@@ -4,7 +4,7 @@ import AdminTopHead from "./AdminTopHead";
 import { Link } from "react-router-dom";
 import { faBook, faCar, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getAllusers } from "../Services/allAPI";
+import { getAllusers, getWebsiteReviewAdmin } from "../Services/allAPI";
 
 function AdminDash() {
   const [userData, setUserdata] = useState([]);
@@ -19,12 +19,19 @@ function AdminDash() {
   const filterOwner = userData.filter(owner => owner.role === 'owner')
   
   
-  
- 
+  const [webreview,setwebreview] = useState([])
+ const getWebsitereviewa = async ()=>{
+  const result = await getWebsiteReviewAdmin()
+  setwebreview(result.data)
+ }
+
+ console.log(webreview)
+
   
 
   useEffect(() => {
     getuserdataforadmin();
+    getWebsitereviewa()
     
   }, []);
 
@@ -67,7 +74,7 @@ function AdminDash() {
                 <h6 className="fw-bolder p-2 text-center mt-2">
                   <FontAwesomeIcon icon={faBook} /> REVIEWS{" "}
                 </h6>
-                <h4 className="text-center text-primary fw-bold">0</h4>
+                <h4 className="text-center text-primary fw-bold">{webreview?.length}</h4>
               </Link>
             </div>
           </div>

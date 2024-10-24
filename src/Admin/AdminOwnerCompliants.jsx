@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminHeader from './AdminHeader'
 import AdminTopHead from './AdminTopHead'
 import { Table } from 'react-bootstrap'
+import { getOwnerComplaint } from '../Services/allAPI'
+import { useFetcher } from 'react-router-dom'
 
 function AdminOwnerCompliants() {
+
+  const [ownercomplains,setownercomplains] = useState('')
+
+  const getownersComplains = async()=>{
+    const result = await getOwnerComplaint()
+    setownercomplains(result.data)
+  }
+
+  
+
+  useEffect(()=>{
+    getownersComplains()
+  },[])
   return (
     <>
     <div className="d-flex">
@@ -19,7 +34,9 @@ function AdminOwnerCompliants() {
             <hr />
           </div>
 
-          <div className="container">
+            {
+              ownercomplains?.length > 0?
+              <div className="container">
             <Table 
               striped
               bordered
@@ -29,21 +46,35 @@ function AdminOwnerCompliants() {
               <thead>
                 <tr className="text-center">
                   <th>ID</th>
-                  <th>NAME</th>
-                  <th>EMAIL</th>
+                  <th style={{width:'150px'}}>OWNER NAME</th>
+                  <th style={{width:'150px'}}>CENTER NAME</th>
                   <th>COMPLAINT</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td>1</td>
-                  <td>athulkrishna</td>
-                  <td>athulkrishna2004@gmail.com</td>
-                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos illo repellendus sequi tenetur numquam nesciunt qui, eius error maxime perferendis. Iure eos repudiandae vero perferendis voluptate, deserunt aut ad facere.</td>
-                </tr>
-              </tbody>
+              {
+                ownercomplains?.map((item,i)=>(
+                  <tbody>
+                  <tr className="text-center">
+                    <td>{i+1}</td>
+                    <td>{item.ownername}</td>
+                    <td>{item.centername}</td>
+                    <td>{item.complaint}</td>
+                  </tr>
+                </tbody>
+
+                ))
+              }
+             
             </Table>
           </div>
+          :
+          <div className="d-flex align-items-center justify-content-center flex-column">
+          <img width={500} src="https://phoenixrogue.com/cdn/shop/files/process-images-01_798195b3-ab81-4b36-819f-fe88c7b2b9de.png?v=1708905593&width=1200" alt="" />
+          <p className='fs-4 fw-bold '>There is no complaints</p>
+        </div>
+            }
+
+          
 
           </div>
           </div>
