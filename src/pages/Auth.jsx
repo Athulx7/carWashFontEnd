@@ -8,6 +8,7 @@ import carwashlogo from '../assets/carwashlogo.jpg'
 import { faFacebook, faGithub, faInstagram, faLinkedin, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { toast } from 'react-toastify'
 import { loginApi, registerAPI } from '../Services/allAPI'
+import './CSS/auth.css'
 
 function Auth({register}) {
 
@@ -116,7 +117,7 @@ function Auth({register}) {
       <div className='container'>
         <Row >
 
-          <Col className='me-5'>
+          <Col className='me-5  carimageFromAuth'>
           <img src={image} width={'100%'} alt="" />
           </Col>
           <Col className='ms-5 mt-5 text-center align-items-center justify-content-center'>

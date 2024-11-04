@@ -1,0 +1,11 @@
+@media (max-width:992px){
+    .carimageFromAuth{
+        display: none;
+        
+
+    }
+    .ms-5{
+        margin-right: 30px;
+    }
+    
+}

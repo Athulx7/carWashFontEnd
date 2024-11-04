@@ -51,7 +51,7 @@ function AboutHome() {
         reqBody.append("webreviewstar", webreviewstar);
   
         const result = await addWebReview(reqBody);
-        console.log(result);
+        // console.log(result);
         if (result.status === 200) {
           handleClose();
           setWebreview("");
@@ -89,7 +89,7 @@ const getWebReview = async()=>{
 setgettingwebreview(result.data)
 
 }
-console.log(getingwebreview)
+// console.log(getingwebreview)
 
 useEffect(()=>{
   getWebReview()

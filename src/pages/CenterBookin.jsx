@@ -155,7 +155,7 @@ function CenterBookin({ centerData }) {
                 className="btn btn-primary w-100"
                 onClick={handleBookingCenter}
               >
-                BOOK NOW
+                BOOK YOUR SLOT NOW
               </button>
             </Link>
           </div>

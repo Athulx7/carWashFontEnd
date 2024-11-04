@@ -27,9 +27,9 @@ function Header() {
 
   return (
     <>
-      <Navbar expand="lg" className="">
+      <Navbar expand="lg" className="headerMain">
         <Container className="me-5">
-          <Navbar.Brand href="/home">
+          <Navbar.Brand href="/">
             {" "}
             <img src={carwashLogo} width={"100px"} alt="" />{" "}
             <span
@@ -40,7 +40,7 @@ function Header() {
             </span>{" "}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="basic-navbar-nav" className="navCollapse">
             <div
               className="text-center align-items-center justify-content-center-evenly d-flex  ms-5"
               style={{ marginLeft: "100px" }}
@@ -143,7 +143,7 @@ function Header() {
 
             :
 
-            <div className="buttons">
+            <div className="buttons d-flex ">
               <Link to={"/login"}>
                 <button className="btn btn-primary rounded">LOGIN</button>
               </Link>

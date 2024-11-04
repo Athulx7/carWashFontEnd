@@ -11,3 +11,12 @@
     background-color: green;
     font-weight: bold;
 }
+.linkHome{
+    text-decoration: none;
+    color: black;
+}
+.linkHome:hover{
+    color: #0d6efd;
+    transition: .5s;
+    transform: scale(1.01);
+}

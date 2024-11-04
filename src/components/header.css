@@ -4,3 +4,22 @@
 link:hover{
     color: blue;
 }
+
+
+@media (max-width:1200px) {
+    .headerMain{
+        margin-right: 100px;
+    }
+    .navCollapse{
+        margin-right: 100px;
+    }
+}
+
+@media (max-width:642px){
+    .buttons{
+        margin-top: 20px;
+        margin-left: 0px;
+        
+    }
+
+}
