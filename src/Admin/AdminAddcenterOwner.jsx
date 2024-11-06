@@ -120,13 +120,7 @@ function AdminAddcenterOwner() {
                     })
                   }
                 />
-                {/* <input
-                  className="form-control mt-3"
-                  name=""
-                  id=""
-                  placeholder=""
-                  defaultValue={"owner"}
-                /> */}
+               
 
                 <div className="d-flex align-items-center justify-content-center mt-3">
                   <button className="btn btn-primary" onClick={handleAddOwner}>

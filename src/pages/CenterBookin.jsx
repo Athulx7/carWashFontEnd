@@ -81,12 +81,19 @@ function CenterBookin({ centerData }) {
 
         const result = await addBookingDetails(reqBody);
         if (result.status === 200) {
-          alert(`Your Booking @ ${centerName} is conformed 
-               \n please add a valueable feedback about us`);
+          // alert(`Your Booking @ ${centerName} is conformed 
+          //      \n please add a valueable feedback about us`);
+
+               swal({
+                title: "Hurray !!!",
+                text: `Your Booking @ ${centerName} is confirmed 
+               \n we hope you can get a perfect center and please add valubale feed back about us`,
+                icon: "success",
+              });
           navigate("/");
-          toast.success(
-            "we hope you can get a perfect center and please add valubale feed back about us"
-          );
+          // toast.success(
+          //   "we hope you can get a perfect center and please add valubale feed back about us"
+          // );
         } else {
           toast.error("booking no confirmed something went wrong");
         }
@@ -103,219 +110,119 @@ function CenterBookin({ centerData }) {
 
   return (
     <>
-      <div className="  mt-5 ">
-        <div className="bookingDiv">
-          <div className="p-3">
-            <p>
-              Price :{" "}
-              <span className="fw-bold fs-4"> &#8377; {centerData?.price}</span>{" "}
-            </p>
-            <hr />
-          </div>
 
-          <div className="p-3">
-            <h5>Location</h5>
-            <input
-              type="text"
-              value={centerData?.location}
-              className="form-control rounded"
-            />
-          </div>
-
-          <div className="p-3">
-            <h5>Date</h5>
-            <input
-              type="date"
-              name=""
-              id=""
-              className="form-control"
-              value={bookingDetails.date}
-              onChange={(e) =>
-                setBookingDetails({ ...bookingDetails, date: e.target.value })
-              }
-            />
-          </div>
-
-          <div className="p-3">
-            <h5>time</h5>
-            <input
-              type="time"
-              name=""
-              id=""
-              className="form-control"
-              value={bookingDetails.time}
-              onChange={(e) =>
-                setBookingDetails({ ...bookingDetails, time: e.target.value })
-              }
-            />
-          </div>
-          <div className="p-3">
-            <Link>
-              <button
-                className="btn btn-primary w-100"
-                onClick={handleBookingCenter}
-              >
-                BOOK YOUR SLOT NOW
-              </button>
-            </Link>
-          </div>
-        </div>
-        <div className="contacts mt-5">
-          <div className="mt-3 mb-4">
-            <div className="ownerimage p-3  d-flex align-items-center justify-content-center text-center">
-              <img
-                src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
-                width={"100px"}
-                alt=""
-              />
-            </div>
-            <div className="text-center mt-2 ">
-              <h5>
-                OWNER NAME :{" "}
-                <span className="fw-bold">
-                  {centerData?.ownerName?.toUpperCase()}
-                </span>
-              </h5>
-              <p className="mt-4">+91 {centerData?.contactno}</p>
-              <p className="mb-5 pb-4">{centerData?.owneremail}</p>
-            </div>
-          </div>
+      <div className="bookingDiv border rounded shadow-sm p-4 mb-5 w-75 ms-5" >
+        <div className="p-3">
+          <p>
+            Price:{" "}
+            <span className="fw-bold fs-4"> &#8377; {centerData?.price}</span>
+          </p>
+          <hr />
         </div>
 
-        <div className="locationcenter mt-5">
-          <iframe
-            src={`${centerData?.map}`}
-            width="475"
-            className="rounded"
-            height="450"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+        <div className="p-3">
+          <h5>Location</h5>
+          <input
+            type="text"
+            value={centerData?.location}
+            className="form-control rounded"
+            readOnly
+          />
         </div>
 
-        <div className="viewReviews mt-5">
-          <Carousel className="">
-            {revies?.map((item) => (
-              <Carousel.Item interval={1000}>
-                <div className="centercarousal  text-dark text-center d-flex align-items-center justify-content-center">
-                  <div>
-                    <p className="mb-5 p-5">{item?.review}</p>
-                    <div className="mt-2 mb-2">
-                      {[...Array(5)].map((star, i) =>
-                        i < item?.rating ? (
-                          <FontAwesomeIcon
-                            icon={faStar}
-                            className={`ms-2 text-warning`}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faStarRegular}
-                            className="text-warning ms-2"
-                          />
-                        )
-                      )}
-                      <p className="fw-bold ">{item?.rating}/5</p>
+        <div className="p-3">
+          <h5>Date</h5>
+          <input
+            type="date"
+            className="form-control"
+            value={bookingDetails.date}
+            onChange={(e) =>
+              setBookingDetails({ ...bookingDetails, date: e.target.value })
+            }
+          />
+        </div>
 
-                      {/* <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning ms-2"
-                    />
+        <div className="p-3">
+          <h5>Time</h5>
+          <input
+            type="time"
+            className="form-control"
+            value={bookingDetails.time}
+            onChange={(e) =>
+              setBookingDetails({ ...bookingDetails, time: e.target.value })
+            }
+          />
+        </div>
+
+        <div className="p-3">
+          <button
+            className="btn btn-primary w-100"
+            onClick={handleBookingCenter}
+          >
+            BOOK YOUR SLOT NOW
+          </button>
+        </div>
+      </div>
+
+      <div className="contacts mb-5 ms-5 w-75">
+        <div className="text-center">
+          <div className="ownerimage d-flex align-items-center justify-content-center">
+            <img
+              src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
+              width="100px"
+              alt="Owner"
+            />
+          </div>
+          <div className="mt-3">
+            <h5>
+              OWNER NAME:{" "}
+              <span className="fw-bold">
+                {centerData?.ownerName?.toUpperCase()}
+              </span>
+            </h5>
+            <p className="mt-3">+91 {centerData?.contactno}</p>
+            <p>{centerData?.owneremail}</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div className="locationcenter mb-5 ms-5 ">
+        <iframe
+          src={`${centerData?.map}`}
+          width="100%"
+          height="450"
+          className="rounded"
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Location Map"
+        ></iframe>
+      </div>
+
+     
+      <div className="viewReviews w-75 ms-5">
+        <Carousel interval={3000} className="rounded shadow-sm">
+          {revies?.map((item, index) => (
+            <Carousel.Item key={index}>
+              <div className="text-center p-4">
+                <p className="mb-4">{item?.review}</p>
+                <div className="d-flex justify-content-center mb-2">
+                  {[...Array(5)].map((star, i) => (
                     <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
+                      key={i}
+                      icon={i < item?.rating ? faStar : faStarRegular}
+                      className="text-warning mx-1"
                     />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    /> */}
-                    </div>
-                    <h6 className="fw-bold">{item?.username.toUpperCase()}</h6>
-                    <p>{item?.useremail}</p>
-                  </div>
+                  ))}
                 </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-
-          {/* <Carousel.Item interval={500}>
-              <div className="centercarousal  text-dark text-center d-flex align-items-center justify-content-center">
-                <div>
-                  <p className="mb-5 p-5">
-                    "Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dolorem tenetur possimus perferendis! Dolor eum vitae
-                    reprehenderit eos possimus harum, delectus ratione, facilis
-                    unde optio in at eaque beatae ipsum adipisci."
-                  </p>
-                  <div className="mt-2 mb-2">
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                  </div>
-                  <h6 className="mb-5 fw-bold">USER NAME</h6>
-                  {/* <p>USERS LOCATION,PLACE</p> */}
-          {/* </div>
+                <p className="fw-bold">{item?.rating} / 5</p>
+                <h6 className="fw-bold">{item?.username?.toUpperCase()}</h6>
+                <p>{item?.useremail}</p>
               </div>
-            </Carousel.Item> */}
-
-          {/* <Carousel.Item>
-              <div className=" centercarousal text-dark text-center d-flex align-items-center justify-content-center">
-                <div>
-                  <p className="mb-5 p-5">
-                    "Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dolorem tenetur possimus perferendis! Dolor eum vitae
-                    reprehenderit eos possimus harum, delectus ratione, facilis
-                    unde optio in at eaque beatae ipsum adipisci."
-                  </p>
-                  <div className="mt-2 mb-2">
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-warning  ms-2"
-                    />
-                  </div>
-                  <h6 className="mb-5 fw-bold">USER NAME</h6> */}
-          {/* <p>USERS LOCATION,PLACE</p> */}
-          {/* </div>
-              </div>
-            </Carousel.Item> */}
-        </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
       </div>
     </>
   );

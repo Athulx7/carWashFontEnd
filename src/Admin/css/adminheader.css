@@ -1,19 +1,43 @@
-.adminheader1{
+.adminheader1 {
     width: 20%;
-    height: 200rem;
+    min-height: 120vh;
     position: fixed;
-}
-
-.adminlinks{
+    transition: width 0.3s ease;
+  }
+  
+  .adminheader1.open {
+    width: 100%;
+    height: auto;
+  }
+  
+  .menu-items {
+    padding: 1rem;
+  }
+  
+  .adminlinks {
     text-decoration: none;
     color: white;
-
-}
-
-.adminlinks:hover{
+  }
+  
+  .adminlinks:hover {
     background-color: white;
     color: blue;
-  padding: 10px;
-  border-radius: 30px;
-  transition: 0.5s;
-}
+    padding: 10px;
+    border-radius: 30px;
+    transition: 0.5s;
+  }
+  
+  @media (max-width: 992px) {
+    .adminheader1 {
+      width: 100%;
+      position: relative;
+    }
+  
+    .menu-items {
+      display: none;
+    }
+  
+    .adminheader1.open .menu-items {
+      display: block;
+    }
+  }

@@ -8,3 +8,12 @@
     margin-bottom: 20px;
      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+
+@media (max-width:992px){
+    .about-image{
+        display: none;
+
+    }
+
+}

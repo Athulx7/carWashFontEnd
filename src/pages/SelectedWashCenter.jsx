@@ -99,127 +99,94 @@ function SelectedWashCenter() {
 
   return (
     <>
-      <Header />
+      
 
-      <div className="container  ">
-        <div>
-          <Row>
-            <Col>
-              <div className="images ">
-                <Carousel>
-                  <Carousel.Item>
-                    <img
-                      src={`${BASE_URL}/uploads/${centerData?.image1}`}
-                      width={"100%"}
-                      height={"300rem"}
-                      alt=""
-                    />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      src={`${BASE_URL}/uploads/${centerData?.image2}`}
-                      width={"100%"}
-                      height={"300rem"}
-                    />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      src={`${BASE_URL}/uploads/${centerData?.image3}`}
-                      alt=""
-                      width={"100%"}
-                      height={"300rem"}
-                    />
-                  </Carousel.Item>
-                </Carousel>
-              </div>
-              <div className="heading mt-5">
-                <h3 className="text-primary fw-bold">
-                  {centerData?.washcentername?.toUpperCase()}
-                </h3>
-                <div className="d-flex ">
-                  <p>
-                    <FontAwesomeIcon icon={faStar} className="text-warning " />{" "}
-                    <span className="fw-bold ">5</span>
-                  </p>
 
-                  <p className="ms-2">||</p>
-                  <p className="ms-2">{centerData?.location}</p>
-                </div>
+<Header />
 
-                <hr />
-              </div>
-
-              <h3 className="fw-bold mt-4">About This Car Wash Center</h3>
-              <p>{centerData?.about?.substring(0, 1000)}</p>
-
-              <p>{centerData?.about?.substring(1000, 1500)}</p>
-              {centerData?.about?.substring(1500)}
-
-              <p></p>
-
-              <div className="addreview mt-5">
-                <h3 className="mb-4 fw-bold">
-                  Add a Review and rating about center name
-                </h3>
-
-                <div>
-                  <textarea
-                    name=""
-                    className="form-control"
-                    placeholder="Enter your valubale review"
-                    style={{ height: "150px" }}
-                    id=""
-                    value={reviewDEtails}
-                    onChange={(e) => setReviewDEtails(e.target.value)}
-                  ></textarea>
-                  <p className="fw-bold mt-3 text-center ">click your rating</p>
-                  <div className="d-flex  mt-3 align-items-center justify-content-center text-center">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <button
-                        onClick={() => handleSelectStar(index)}
-                        className=" ms-2"
-                        style={{ backgroundColor: "white", border: "white" }}
-                      >
-                        {index < selectedStar ? (
-                          <FontAwesomeIcon
-                            icon={faStar}
-                            className="text-warning"
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faStarRegular}
-                            className="text-warning"
-                          />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="text-center mt-2 ">
-                    <p className="fw-bold">{selectedStar} /5</p>
-                  </div>
-                  <Link>
-                    <button
-                      className="btn btn-primary w-100 "
-                      onClick={hanldeAddReview}
-                    >
-                      SUBMIT
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </Col>
-
-            <Col style={{}}>
-              <CenterBookin centerData={centerData} />
-            </Col>
-          </Row>
-        </div>
-
-        <div className="container"></div>
+<div className="container mt-5">
+  <Row className="gy-4">
+    
+    <Col lg={8} xs={12} className="">
+      
+      <div className="images mb-4">
+        <Carousel>
+          {[centerData?.image1, centerData?.image2, centerData?.image3].map((image, index) => (
+            <Carousel.Item key={index}>
+              <img
+                src={`${BASE_URL}/uploads/${image}`}
+                alt={`Slide ${index + 1}`}
+                className="d-block w-100"
+                style={{ height: "300px", objectFit: "cover" }}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
       </div>
 
-      <Footer />
+      
+      <div className="heading mt-4">
+        <h3 className="text-primary fw-bold">{centerData?.washcentername?.toUpperCase()}</h3>
+        <div className="d-flex align-items-center mt-2">
+          <p className="mb-0">
+            <FontAwesomeIcon icon={faStar} className="text-warning" /> <span className="fw-bold">5</span>
+          </p>
+          <p className="mx-2 mb-0">||</p>
+          <p className="mb-0">{centerData?.location}</p>
+        </div>
+        <hr />
+      </div>
+
+      
+      <h3 className="fw-bold mt-4">About This Car Wash Center</h3>
+      <p>{centerData?.about?.substring(0, 1000)}</p>
+      <p>{centerData?.about?.substring(1000, 1500)}</p>
+      <p>{centerData?.about?.substring(1500)}</p>
+
+      
+      <div className="addreview mt-5">
+        <h3 className="mb-4 fw-bold">Add a Review and Rating</h3>
+        <textarea
+          className="form-control mb-3"
+          placeholder="Enter your valuable review"
+          style={{ height: "150px" }}
+          value={reviewDEtails}
+          onChange={(e) => setReviewDEtails(e.target.value)}
+        ></textarea>
+        <p className="fw-bold mt-3 text-center">Click Your Rating</p>
+        <div className="d-flex justify-content-center mt-3">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <button
+              
+              onClick={() => handleSelectStar(index)}
+              className="border-0 bg-transparent ms-2"
+            >
+              {index < selectedStar ? (
+                <FontAwesomeIcon icon={faStar} className="text-warning" />
+              ) : (
+                <FontAwesomeIcon icon={faStarRegular} className="text-warning" />
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="text-center mt-2">
+          <p className="fw-bold">{selectedStar} / 5</p>
+        </div>
+        <button className="btn btn-primary w-100" onClick={hanldeAddReview}>
+          SUBMIT
+        </button>
+      </div>
+    </Col>
+
+    
+    <Col lg={4} xs={12} className="">
+      <CenterBookin centerData={centerData} />
+    </Col>
+  </Row>
+</div>
+
+<Footer />
+
     </>
   );
 }

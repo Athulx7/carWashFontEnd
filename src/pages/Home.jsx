@@ -16,121 +16,110 @@ import { Link } from "react-router-dom";
 import { getMoreCenterAPI, searching } from "../Services/allAPI";
 
 function Home() {
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [result, setResult] = useState([]);
+  const [searched, setSearched] = useState(false);
 
-  const [location,setLocation] = useState('')
-  const [date,setDate]=useState('')
-  const [time,setTime] = useState('')
-  const [result,setResult] = useState([])
-  const [searched,setSearched]=useState(false)
-
-const seaarchCenter = async()=>{
- 
-    const searchResult = await searching(location,date,time)
+  const seaarchCenter = async () => {
+    const searchResult = await searching(location, date, time);
     // console.log(searchResult)
-    setResult(searchResult?.data)
-    setSearched(true)
-  
-  }
-  useEffect(()=>{
-    console.log(result)
-  },[result])
- 
-
+    setResult(searchResult?.data);
+    setSearched(true);
+  };
+  useEffect(() => {
+    // console.log(result);
+  }, [result]);
 
   return (
     <>
       <Header />
 
-      <div className=" w-100 bg-primary main" style={{ height: "700px" }}>
-        <div className="container  d-flex align-items-center justify-content-center text-center ">
-          <div className="home-heading    ">
-            <h1 className="fw-bold" style={{ color: "white" }}>
-              FIND THE BEST <span className="text-primary">CAR WASH</span>{" "}
-              CENTER FOR YOU
-            </h1>
-          </div>
-        </div>
+      <div
+        className="main w-100  bg-primary text-center d-flex flex-column justify-content-center align-items-center"
+        style={{ height: "700px" }}
+      >
+        <div className="w-100" style={{marginBottom:''}}>
+        <h1 className="fw-bold text-white ">
+          FIND THE BEST <span className="text-primary">CAR WASH</span> CENTER
+          FOR YOU
+        </h1>
 
-        <div className="searchbar d-flex justify-content-center align-items-center text-center mt-5 ">
-          <div className="loacation w-100 d-flex ">
+        <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
+          <div className="w-100 mb-3 mb-md-0">
             <input
               type="text"
               placeholder="ENTER THE LOCATION"
               className="form-control text-center fs-5"
               value={location}
-              onChange={(e)=>setLocation(e.target.value.toLowerCase())}
+              onChange={(e) => setLocation(e.target.value.toLowerCase())}
             />
           </div>
-          <div className="date w-100 ">
+          <div className="w-100 mb-3 mb-md-0 ms-md-3">
             <input
               type="date"
-              name=""
-              id=""
-              placeholder="SELECT DATE"
               className="form-control text-center fs-5"
               value={date}
-              onChange={(e)=>setDate(e.target.value)}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
-          <div className="time w-100">
+          <div className="w-100 mb-3 mb-md-0 ms-md-3">
             <input
               type="time"
-              name=""
-              id=""
               className="form-control text-center fs-5"
               value={time}
-              onChange={(e)=>setTime(e.target.value)}
+              onChange={(e) => setTime(e.target.value)}
             />
           </div>
-          <div className="searchButton w-50">
-            <Link to={""}>
-              <button className="btn btn-primary" onClick={seaarchCenter}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} /> SEARCH
-              </button>
-            </Link>
+          <div className="w-100 mt-3 mt-md-0 ms-md-3 text-center">
+            <button
+              className="btn btn-light text-primary fw-bold w-100"
+              onClick={seaarchCenter}
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} /> SEARCH
+            </button>
           </div>
         </div>
+        </div>
 
-        {
-          searched &&(
-            <div className="d-flex mt-3 align-items-center justify-content-center">
-          <div className="w-50 bg-light rounded border border-3 border-primary">
-            {
-              result?.length>0?
-              result.map((item)=>(
-                <div className="p-3">
-              <Link className="linkHome" to={`/selectedwash/${item._id}`}>
-                <div className="d-flex">
-                  <span className="fw-bold">
-                    <FontAwesomeIcon icon={faCar} />
-                  </span>{" "}
-                  <h5 className="ms-3 fw-bold">{item?.washcentername.toUpperCase()}</h5>
-                </div>
-                <div>
-                  <p className="">{item?.location}</p>
-                </div>
-                <hr />
-              </Link>
+        {searched && (
+          <div className="d-flex mt-3 justify-content-center w-75">
+            <div className="w-75 bg-light rounded border border-3 border-primary p-3">
+              {result?.length > 0 ? (
+                result.map((item, index) => (
+                  <div key={index} className="p-3 searchHover">
+                    <Link
+                      className="text-decoration-none text-dark "
+                      to={`/selectedwash/${item._id}`}
+                    >
+                      <div className="d-flex align-items-center searchHover">
+                        <FontAwesomeIcon icon={faCar} className="me-2" />
+                        <h5 className="fw-bold mb-0 ">
+                          {item?.washcentername.toUpperCase()}
+                        </h5>
+                      </div>
+                      <p className="text-muted text-start mt-3">
+                        {item?.location}
+                      </p>
+                      <hr />
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div className="container d-flex align-items-center justify-content-center flex-column text-center">
+                <img src="https://charatoon.com/photo/thum/5214.png" alt="No centers available" className="img-fluid mb-3" />
+                <h5 className="fw-bold">There are no centers available</h5>
+              </div>
+              )}
             </div>
-
-              )):
-              <p>nothing</p>
-              
-            }
-           
           </div>
-        </div>
-          )
-          
-        }
-
-        
+        )}
+       
       </div>
 
       <HomeWashCenter />
-
       <AboutHome />
-
       <Footer />
     </>
   );

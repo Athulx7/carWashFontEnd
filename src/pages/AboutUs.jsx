@@ -49,7 +49,7 @@ function AboutUs() {
       reqBody.append("webreviewstar", webreviewstar);
 
       const result = await addWebReview(reqBody);
-      console.log(result);
+      // console.log(result);
       if (result.status === 200) {
         handleClose();
         setWebreview("");
@@ -80,10 +80,10 @@ function AboutUs() {
 
   const getWebReview = async () => {
     const result = await getWebReviewApi();
-    console.log(result);
+    // console.log(result);
     setgettingwebreview(result.data);
   };
-  console.log(getingwebreview);
+  // console.log(getingwebreview);
 
   useEffect(() => {
     getWebReview();
@@ -93,22 +93,34 @@ function AboutUs() {
     <>
       <Header />
 
-      <div className="container d-flex align-items-center justify-content-between ">
-        <div className="aboutmain me-5 w-50 ">
-          <h3 className="mb-5 fw-bold text-primary">ABOUT US</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit odio
-            molestiae, hic illum totam quod eligendi quia q Lorem, ipsum dolor
-            sit amet consectetur adipisicing elit. Modi, quasi iusto iste
-            doloremque reprehenderit doloribus blanditiis? Repellat, provident
-            dolorum molestiae natus impedit iste non laudantium odit similique,
-            est optio incidunt. uidem voluptatem, delectus voluptate asperiores
-            quibusdam culpa iusto. Accusamus nihil veritatis quos nobis.
-          </p>
-        </div>
-        <div className="aboutimage ms-5 w-50">
-          <img src={aboutimage} width={"100%"} alt="" />
-        </div>
+      <div className="container mt-5">
+       
+        <Row>
+          <Col className="about-main me-5 w-50">
+            <div>
+              <h3 className="mb-5 fw-bold text-primary">ABOUT US</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
+                odio molestiae, hic illum totam quod eligendi quia. Lorem, ipsum
+                dolor sit amet consectetur adipisicing elit. Modi, quasi iusto
+                iste doloremque reprehenderit doloribus blanditiis? Repellat,
+                provident dolorum molestiae natus impedit iste non laudantium
+                odit similique. Lorem ipsum dolor sit amet consectetur,
+                adipisicing elit. Non rem, inventore id unde ducimus vero rerum
+                amet vitae sapiente praesentium exercitationem minima, quasi
+                quis nisi minus ex. Placeat, ratione sed. Lorem, ipsum dolor sit
+                amet consectetur adipisicing elit. Vero, autem mollitia magni at
+                non laboriosam? Aliquid cumque impedit iste odit harum facere,
+                deleniti dolore. Ab ipsam numquam praesentium distinctio ex.
+              </p>
+            </div>
+          </Col>
+          <Col className="about-image  ms-5 w-50">
+            <div>
+              <img src={aboutimage} width="100%" alt="About us" />
+            </div>
+          </Col>
+        </Row>
       </div>
 
       <div className="container">
@@ -166,16 +178,16 @@ function AboutUs() {
         </Row>
       </div>
 
-      <div className="feedback container ">
-        <div className="d-flex ">
-          <h4 className="mt-5   text-primary fw-bold">
-            <u>WHAT OUR CLIENT SAYAS</u>
-          </h4>
-          <Link className="ms-auto">
-            <button className="btn btn-primary mt-5  " onClick={handleShow}>
+      <div className="feedback container mt-5">
+          <div className="d-flex align-items-center mb-4">
+            <h4 className="fw-bold text-primary">
+              <u>WHAT OUR CLIENTS SAY</u>
+            </h4>
+            <Button className="ms-auto btn btn-primary" onClick={handleShow}>
               ADD YOUR REVIEW <FontAwesomeIcon icon={faAdd} className="ms-2" />
-            </button>
-          </Link>
+            </Button>
+          
+          
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -230,40 +242,31 @@ function AboutUs() {
             </Modal.Footer>
           </Modal>
         </div>
+        
 
-        <Carousel>
-          {getingwebreview?.map((item) => (
-            <Carousel.Item interval={1000}>
-              <div className="aboutcarousal  text-dark text-center d-flex align-items-center justify-content-center">
-                <div>
-                  <p className="mb-5 p-5">{item?.webreview}</p>
-                  <div className="mt-2 mb-2">
-                    {[...Array(5)].map((star, i) =>
-                      i < item?.webreviewstar ? (
-                        <FontAwesomeIcon
-                          icon={faStar}
-                          className={`ms-2 text-warning`}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={faStarRegular}
-                          className="ms-2 text-warning"
-                        />
-                      )
-                    )}
-
-                    <p className="fw-bold">{item?.webreviewstar}/5</p>
+        <Carousel interval={3000} className="mt-4 rounded border border-3 shadow">
+            {getingwebreview?.map((item, index) => (
+              <Carousel.Item key={index}>
+                <div className="text-center py-4">
+                  <p className="p-4">{item.webreview}</p>
+                  <div className="d-flex justify-content-center mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <FontAwesomeIcon
+                        key={i}
+                        icon={i < item.webreviewstar ? faStar : faStarRegular}
+                        className="text-warning ms-1"
+                      />
+                    ))}
                   </div>
-                  <h6 className="mb-2 fw-bold">
-                    {item?.username.toUpperCase()}
-                  </h6>
-                  <p>{item?.useremail}</p>
+                  <p className="fw-bold mt-2">{item.webreviewstar}/5</p>
+                  <h6 className="fw-bold">{item.username.toUpperCase()}</h6>
+                  <p>{item.useremail}</p>
                 </div>
-              </div>
-            </Carousel.Item>
-          ))}
-        </Carousel>
+              </Carousel.Item>
+            ))}
+          </Carousel>
       </div>
+     
 
       <Footer />
     </>
