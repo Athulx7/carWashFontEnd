@@ -39,8 +39,8 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         
         <Navbar.Collapse id="basic-navbar-nav">
-          <div className="d-flex flex-column fs-5 flex-lg-row align-items-center justify-content-center ms-auto me-auto ">
-            <Link to="/" className="nav-link text-dark ms-5 fw-bold">HOME</Link>
+          <div className="d-flex flex-column fs-5 flex-lg-row  ms-auto me-auto ">
+            <Link to="/" className="nav-link text-dark ms-5 fw-bold ">HOME</Link>
             <Link to="/aboutus" className="nav-link text-dark ms-4 fw-bold">ABOUT US</Link>
             <Link to="/showmorewash" className="nav-link text-dark ms-4 fw-bold">WASH CENTERS</Link>
             <Link to="/contactus" className="nav-link text-dark ms-4 fw-bold">CONTACT US</Link>

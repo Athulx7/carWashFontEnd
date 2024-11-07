@@ -63,6 +63,8 @@ function Home() {
               value={date}
               onChange={(e) => setDate(e.target.value)}
               placeholder="Select the Date"
+              onFocus={(e)=>(e.target.type = 'date')}
+              onBlur={(e)=>(e.target.placeholder = date?'':'select date')}
             />
           </div>
           <div className="w-100 mb-3 mb-md-0 ms-md-3">
@@ -73,6 +75,8 @@ function Home() {
               placeholder="Select the time"
               step={'3600'}
               onChange={(e) => setTime(e.target.value)}
+              onFocus={(e)=>(e.target.type = 'time')}
+              onBlur={(e)=>(e.target.placeholder=time?'':'select time')}
             />
           </div>
           <div className="w-100 mt-3 mt-md-0 ms-md-3 text-center">
