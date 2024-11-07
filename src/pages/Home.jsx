@@ -62,6 +62,7 @@ function Home() {
               className="form-control text-center fs-5"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              placeholder="Select the Date"
             />
           </div>
           <div className="w-100 mb-3 mb-md-0 ms-md-3">
@@ -69,6 +70,8 @@ function Home() {
               type="time"
               className="form-control text-center fs-5"
               value={time}
+              placeholder="Select the time"
+              step={'3600'}
               onChange={(e) => setTime(e.target.value)}
             />
           </div>
