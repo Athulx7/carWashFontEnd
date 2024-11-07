@@ -48,6 +48,8 @@ function Home() {
 
         <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center mt-5">
           <div className="w-100 mb-3 mb-md-0">
+          <label htmlFor="time" className="fs-5 fw-bold text-light">enter place</label>
+
             <input
               type="text"
               placeholder="ENTER THE LOCATION"
@@ -57,6 +59,8 @@ function Home() {
             />
           </div>
           <div className="w-100 mb-3 mb-md-0 ms-md-3">
+          <label htmlFor="time" className="fs-5 fw-bold text-light">select date</label>
+
             <input
               type="date"
               className="form-control text-center fs-5"
@@ -68,18 +72,22 @@ function Home() {
             />
           </div>
           <div className="w-100 mb-3 mb-md-0 ms-md-3">
+            <label htmlFor="time" className="fs-5 fw-bold text-light">select time</label>
             <input
               type="time"
               className="form-control text-center fs-5"
               value={time}
               placeholder="Select the time"
               step={'3600'}
+              id="time"
               onChange={(e) => setTime(e.target.value)}
               onFocus={(e)=>(e.target.type = 'time')}
               onBlur={(e)=>(e.target.placeholder=time?'':'select time')}
             />
           </div>
-          <div className="w-100 mt-3 mt-md-0 ms-md-3 text-center">
+          
+        </div>
+        <div className="w-25 mt-3  me-auto ms-auto text-center">
             <button
               className="btn btn-light text-primary fw-bold w-100"
               onClick={seaarchCenter}
@@ -87,7 +95,6 @@ function Home() {
               <FontAwesomeIcon icon={faMagnifyingGlass} /> SEARCH
             </button>
           </div>
-        </div>
         </div>
 
         {searched && (
