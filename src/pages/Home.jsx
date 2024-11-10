@@ -99,7 +99,11 @@ function Home() {
 
         {searched && (
           <div className="d-flex mt-3 justify-content-center w-75">
-            <div className="w-75 bg-light rounded border border-3 border-primary p-3">
+            <div className="w-75 bg-light rounded border border-3 border-primary p-3"style={{
+        width: "100%",
+        maxHeight: "400px", // Set a max height for scrolling
+        overflowY: "auto",  // Enable vertical scroll
+      }}>
               {result?.length > 0 ? (
                 result.map((item, index) => (
                   <div key={index} className="p-3 searchHover">
