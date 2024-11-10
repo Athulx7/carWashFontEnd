@@ -30,7 +30,7 @@ function Header() {
      
 
 
-<Navbar expand="lg" className="headerMain">
+{/* <Navbar expand="lg" className="headerMain">
       <Container>
         <Navbar.Brand href="/" className="d-flex align-items-center">
           <img src={carwashLogo} width="80" alt="Car Wash Logo" />
@@ -97,7 +97,77 @@ function Header() {
           </div>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </Navbar> */}
+
+
+<Navbar expand="lg" className="headerMain">
+  <Container>
+    <Navbar.Brand href="/" className="d-flex align-items-center">
+      <img src={carwashLogo} width="80" alt="Car Wash Logo" />
+      <span className="text-primary fw-bold ms-2 fs-3">CAR WASH</span>
+    </Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+    <Navbar.Collapse id="basic-navbar-nav">
+      <div className="d-flex flex-column flex-lg-row align-items-center fs-5 ms-auto me-auto text-center">
+        <Link to="/" className="nav-link text-dark fw-bold py-2 ms-5">HOME</Link>
+        <Link to="/aboutus" className="nav-link text-dark fw-bold py-2 ms-5">ABOUT US</Link>
+        <Link to="/showmorewash" className="nav-link text-dark fw-bold py-2 ms-5">WASH CENTERS</Link>
+        <Link to="/contactus" className="nav-link text-dark fw-bold py-2 ms-5">CONTACT US</Link>
+      </div>
+
+      <div className="d-flex ms-auto mt-3 mt-lg-0 align-items-center">
+        {loggedUser ? (
+          <div className="d-flex align-items-center">
+            <img
+              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+              width="40"
+              className="rounded-circle userLogo me-3"
+              onClick={handleShow}
+              alt="User Profile"
+            />
+            <button className="btn btn-danger fw-bold" onClick={handleLogout}>
+              LOG OUT
+            </button>
+
+            <Modal show={show} onHide={handleClose} centered>
+              <Modal.Header closeButton>
+                <Modal.Title className="text-center">USER NAME</Modal.Title>
+              </Modal.Header>
+              <Modal.Body className="text-center">
+                <img
+                  width="100"
+                  src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                  alt="User Icon"
+                />
+                <h5 className="mt-3">
+                  Username: <span className="text-primary">{loggedUser.username}</span>
+                </h5>
+                <h5>
+                  Email: <span className="text-primary">{loggedUser.email}</span>
+                </h5>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+        ) : (
+          <div className="d-flex flex-column flex-lg-row ">
+            <Link to="/login" className="me-lg-3 mb-2 mb-lg-0">
+              <button className="btn btn-primary rounded w-100">LOGIN</button>
+            </Link>
+            <Link to="/register">
+              <button className="btn btn-primary rounded w-100">REGISTER</button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
     </>
   );
 }
