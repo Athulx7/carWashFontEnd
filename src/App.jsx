@@ -24,6 +24,7 @@ import AdminCenter from "./Admin/AdminCenter";
 import AdminReview from "./Admin/AdminReview";
 import AdminAddcenterOwner from "./Admin/AdminAddcenterOwner";
 import AdminOwnerCompliants from "./Admin/AdminOwnerCompliants";
+import AdminUserComplaint from "./Admin/AdminUserComplaint";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
         <Route path="/adminreview" element={<AdminReview />} />
         <Route path="/adminaddowner" element={<AdminAddcenterOwner />} />
         <Route path="/adminownercomplaint" element={<AdminOwnerCompliants />} />
+        <Route path="/adminusercomplaint" element={<AdminUserComplaint />} />
       </Routes>
       <ToastContainer />
     </>

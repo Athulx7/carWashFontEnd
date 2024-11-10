@@ -78,11 +78,11 @@ function Home() {
               className="form-control text-center fs-5"
               value={time}
               placeholder="Select the time"
-              step={'3600'}
+              // step={'3600'}
               id="time"
               onChange={(e) => setTime(e.target.value)}
-              onFocus={(e)=>(e.target.type = 'time')}
-              onBlur={(e)=>(e.target.placeholder=time?'':'select time')}
+              // onFocus={(e)=>(e.target.type = 'time')}
+              // onBlur={(e)=>(e.target.placeholder=time?'':'select time')}
             />
           </div>
           

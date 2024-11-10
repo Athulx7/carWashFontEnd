@@ -7,7 +7,6 @@ import { Col, Row } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import "./CSS/selectedcenter.css";
-
 import CenterBookin from "./CenterBookin";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -19,6 +18,7 @@ import { toast } from "react-toastify";
 import { reviewResponceContext } from "../Context/ContextShare";
 
 function SelectedWashCenter() {
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -97,10 +97,10 @@ function SelectedWashCenter() {
     }
   };
 
+  const [rating,setRating] = useState([])
+
   return (
     <>
-      
-
 
 <Header />
 
@@ -129,7 +129,7 @@ function SelectedWashCenter() {
         <h3 className="text-primary fw-bold">{centerData?.washcentername?.toUpperCase()}</h3>
         <div className="d-flex align-items-center mt-2">
           <p className="mb-0">
-            <FontAwesomeIcon icon={faStar} className="text-warning" /> <span className="fw-bold">5</span>
+            <FontAwesomeIcon icon={faStar} className="text-warning" /> <span className="fw-bold">{rating}</span>
           </p>
           <p className="mx-2 mb-0">||</p>
           <p className="mb-0">{centerData?.location}</p>

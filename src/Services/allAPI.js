@@ -35,6 +35,12 @@ export const getWebsiteReviewAdmin = async()=>{
     return await commonAPI("GET",`${BASE_URL}/admin/getwebreview`,'','')
 }
 
+export const getMessagesAPI = async()=>{
+    return await commonAPI("GET",`${BASE_URL}/admin/getmessage`,'','')
+}
+
+
+
 
 
 
@@ -121,4 +127,9 @@ export const addBookingDetails = async(reqBody)=>{
 
 export const searching = async(loc,date,time)=>{
     return await commonAPI("GET",`${BASE_URL}/user/search/${loc}/${date}/${time}`,'','')
+}
+
+
+export const sendMessageAPI = async(reqBody)=>{
+    return await commonAPI("POST",`${BASE_URL}/user/addmessage`,reqBody,'')
 }

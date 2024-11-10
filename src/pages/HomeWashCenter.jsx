@@ -21,6 +21,8 @@ function HomeWashCenter() {
   useEffect(() => {
     getHomeCenters();
   }, []);
+
+  
   return (
     <>
       <div style={{ backgroundColor: "aliceblue" }} className="py-5">

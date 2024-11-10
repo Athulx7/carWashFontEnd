@@ -3,6 +3,7 @@ import AdminHeader from "./AdminHeader";
 import AdminTopHead from "./AdminTopHead";
 import { Table } from "react-bootstrap";
 import { getAllusers } from "../Services/allAPI";
+import { Link } from "react-router-dom";
 
 function AdminUsers() {
 
@@ -35,7 +36,20 @@ function AdminUsers() {
             <hr />
           </div>
 
+          <div className="mx-3">
+            <Link to={'/adminusercomplaint'}>
+            <button className="btn btn-primary fw-bold">
+            VIEW USER COMPLAINTS
+
+            </button>
+            
+            </Link>
+           
+          </div>
+
           <div className="container">
+
+
             
             {
               filterUser?.length>0?
