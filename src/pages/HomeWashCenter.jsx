@@ -60,7 +60,7 @@ function HomeWashCenter() {
                     <Card.Body>
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="rating   text-dark rounded px-2 py-1">
-                          4.1{" "}
+                          {" "}
                           <FontAwesomeIcon
                             icon={faStar}
                             className="text-warning "
