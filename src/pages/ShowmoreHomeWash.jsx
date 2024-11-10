@@ -140,7 +140,7 @@ function ShowmoreHomeWash() {
               <div className="d-flex justify-content-evenly align-items-center">
                 <div className="rating rounded  text-dark p-1">
                   <p className="m-0">
-                     <FontAwesomeIcon icon={faStar} className="text-warning" />
+                     {/* <FontAwesomeIcon icon={faStar} className="text-warning" /> */}
                   </p>
                 </div>
                 <Link to={`/selectedwash/${item._id}`} className="text-decoration-none text-dark">
